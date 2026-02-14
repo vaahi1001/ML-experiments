@@ -49,43 +49,44 @@ model_files = {
     "XGBoost": "/mount/src/ml-experiments/01_ClassificationModels/01_logisticreg_pipeline_1.pkl"
 }
 
+# --- Load all models ---
 models = {}
 for name, file in model_files.items():
     models[name] = joblib.load(file)
 
-# --- Predict ---
+# --- Load test data for metrics ---
+X_test = pd.read_csv("/mount/src/ml-experiments/01_ClassificationModels/X_test.csv")
+y_test = pd.read_csv("/mount/src/ml-experiments/01_ClassificationModels/y_test.csv").values.ravel()
+
+# --- Predict button ---
 if st.button("Predict with all models"):
+    # Patient prediction
     results = []
     for name, model in models.items():
         pred = model.predict(input_data)[0]
         prob = model.predict_proba(input_data)[0][pred]
         risk = "High Risk" if pred == 1 else "Low Risk"
-        results.append({
-            "Model": name,
-            "Prediction": risk,
-            "Probability": f"{prob:.2f}"
-        })
-
-    st.write("### Predictions from all models:")
+        results.append({"Model": name, "Prediction": risk, "Probability": f"{prob:.2f}"})
+    
+    st.write("### Predictions for input patient")
     st.table(pd.DataFrame(results))
 
-    st.write("### Model Evaluation Metrics on Test Set")
+    # Model evaluation metrics
     metrics_list = []
-
     for name, model in models.items():
-     y_pred = model.predict(X_test)
-     y_proba = model.predict_proba(X_test)[:,1]
+        y_pred = model.predict(X_test)
+        y_proba = model.predict_proba(X_test)[:,1]
+        metrics_list.append({
+            "Model": name,
+            "Accuracy": round(accuracy_score(y_test, y_pred), 2),
+            "AUC": round(roc_auc_score(y_test, y_proba), 2),
+            "Precision": round(precision_score(y_test, y_pred), 2),
+            "Recall": round(recall_score(y_test, y_pred), 2),
+            "F1 Score": round(f1_score(y_test, y_pred), 2),
+            "MCC": round(matthews_corrcoef(y_test, y_pred), 2)
+        })
     
-     metrics = {
-        "Model": name,
-        "Accuracy": round(accuracy_score(y_test, y_pred), 2),
-        "AUC": round(roc_auc_score(y_test, y_proba), 2),
-        "Precision": round(precision_score(y_test, y_pred), 2),
-        "Recall": round(recall_score(y_test, y_pred), 2),
-        "F1 Score": round(f1_score(y_test, y_pred), 2),
-        "MCC": round(matthews_corrcoef(y_test, y_pred), 2)
-     }
-     metrics_list.append(metrics)
-
+    st.write("### Model Evaluation Metrics on Test Set")
     st.table(pd.DataFrame(metrics_list))
+
 
