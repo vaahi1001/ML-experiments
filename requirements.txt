@@ -5,4 +5,4 @@ scikit-learn
 matplotlib
 streamlit
 joblib
-pip install xgboost
+xgboost==1.7.5
