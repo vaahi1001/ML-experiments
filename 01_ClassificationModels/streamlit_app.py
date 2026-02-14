@@ -44,7 +44,7 @@ input_data = pd.DataFrame({
 model_files = [
     "/mount/src/ml-experiments/01_ClassificationModels/logisticregression_pipeline.pkl",
     "/mount/src/ml-experiments/01_ClassificationModels/decisiontree_pipeline.pkl",
-    "/mount/src/ml-experiments/01_ClassificationModels/kneighbors_pipeline.pkl",
+    "/mount/src/ml-experiments/01_ClassificationModels/k-neighbors_pipeline.pkl",
     "/mount/src/ml-experiments/01_ClassificationModels/naivebayes_pipeline.pkl",
     "/mount/src/ml-experiments/01_ClassificationModels/randomforest_pipeline.pkl",
     "/mount/src/ml-experiments/01_ClassificationModels/xgboost_pipeline.pkl"
