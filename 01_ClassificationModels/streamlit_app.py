@@ -114,6 +114,12 @@ model_files = [
     "/mount/src/ml-experiments/01_ClassificationModels/xgboost_pipeline.pkl"
 ]
 models = {}
+for file in model_files:
+    try:
+        name = os.path.basename(file).split("_pipeline")[0].capitalize()
+        models[name] = joblib.load(file)
+    except Exception as e:
+        st.warning(f"Could not load {file}: {e}")
 
 # --- Button to run predictions ---
 if st.button("Predict with all models"):
