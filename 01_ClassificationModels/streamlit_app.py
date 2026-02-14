@@ -53,7 +53,7 @@ model_files = [
 models = {}
 for file in model_files:
     if os.path.exists(file):
-        model_name = os.path.basename(file).replace("_pipeline.pkl", "").replace("kneighbors", "K-Nearest Neighbor").capitalize()
+        model_name = os.path.basename(file).replace("_pipeline.pkl", "").replace("kneighbors", "K-NearestNeighbor").capitalize()
         models[model_name] = joblib.load(file)
     else:
         st.warning(f"Model file {file} not found!")
