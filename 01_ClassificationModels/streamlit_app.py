@@ -195,21 +195,19 @@ if st.button("Predict with all models"):
         st.write("### Model KPIs on Test Set")
         st.table(pd.DataFrame(metrics_list))
 
-import joblib
-
-# Try loading
-try:
-    xgb_model = joblib.load('xgboost_model.pkl')
-    print("Model loaded successfully")
-except Exception as e:
-    print("Error loading model:", e)
-
-# Try predicting on test data
-try:
-    preds = xgb_model.predict(X_test)
-    probs = xgb_model.predict_proba(X_test)
-    print(preds[:5], probs[:5])
-except Exception as e:
-    print("Error predicting:", e)
+        # Try loading
+        try:
+            xgb_model = joblib.load('xgboost_model.pkl')
+            print("Model loaded successfully")
+        except Exception as e:
+            print("Error loading model:", e)
+        
+        # Try predicting on test data
+        try:
+            preds = xgb_model.predict(X_test)
+            probs = xgb_model.predict_proba(X_test)
+            print(preds[:5], probs[:5])
+        except Exception as e:
+            print("Error predicting:", e)
 
 
