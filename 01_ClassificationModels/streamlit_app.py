@@ -87,5 +87,5 @@ if st.button("Predict with all models"):
      }
      metrics_list.append(metrics)
 
-   st.table(pd.DataFrame(metrics_list))
+    st.table(pd.DataFrame(metrics_list))
 
