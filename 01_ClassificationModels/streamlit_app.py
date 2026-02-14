@@ -16,7 +16,7 @@ from sklearn.ensemble import RandomForestClassifier
 import os
 
 
-st.title("Heart Disease Detection - Multi-Model Demo")
+st.title("Heart Disease Detection")
 
 # --- User Inputs ---
 age = st.number_input("Age", min_value=1, max_value=120, value=50)
