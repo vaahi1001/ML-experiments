@@ -18,20 +18,27 @@ import os
 
 st.title("Heart Disease Detection")
 
+gender_map = {0: "Female", 1: "Male"}
+cp_map = {0: "Typical Angina", 1: "Atypical Angina", 2: "Non-Anginal Pain", 3: "Asymptomatic"}
+fbs_map = {0: "Fasting Glucose <= 120mg/dl", 1: "Fasting Glucose > 120mg/dl"}
+restecg_map = {0: "Normal", 1: "ST-T Wave Abnormality", 2: "Left Ventricular Hypertrophy"}
+exang_map = {0: "No", 1: "Yes"}
+slope_map = {0: "Upsloping", 1: "Flat", 2: "Downsloping"}
+thal_map = {1: "Normal", 2: "Fixed Defect", 3: "Reversible Defect"}
+
+
 # --- User Inputs ---
-age = st.number_input("Age", min_value=1, max_value=120, value=50)
-sex = st.selectbox("Sex", [0, 1])
-cp = st.selectbox("Chest Pain Type (0-3)", [0, 1, 2, 3])
-trestbps = st.number_input("Resting Blood Pressure", value=120)
-chol = st.number_input("Serum Cholesterol", value=200)
-fbs = st.selectbox("Fasting Blood Sugar > 120 mg/dl", [0, 1])
-restecg = st.selectbox("Resting ECG (0-2)", [0, 1, 2])
-thalach = st.number_input("Max Heart Rate Achieved", value=150)
-exang = st.selectbox("Exercise Induced Angina", [0, 1])
-oldpeak = st.number_input("ST Depression", value=1.0, step=0.1)
-slope = st.selectbox("Slope of ST Segment (0-2)", [0, 1, 2])
-ca = st.selectbox("Number of Major Vessels (0-3)", [0, 1, 2, 3])
-thal = st.selectbox("Thalassemia (1 = normal, 2 = fixed defect, 3 = reversible defect)", [1, 2, 3])
+patient_readable = patient.copy()
+patient_readable['sex'] = gender_map[patient['sex']]
+patient_readable['cp'] = cp_map[patient['cp']]
+patient_readable['fbs'] = fbs_map[patient['fbs']]
+patient_readable['restecg'] = restecg_map[patient['restecg']]
+patient_readable['exang'] = exang_map[patient['exang']]
+patient_readable['slope'] = slope_map[patient['slope']]
+patient_readable['thal'] = thal_map[patient['thal']]
+
+print(patient_readable)
+
 
 # Prepare input DataFrame
 input_data = pd.DataFrame({
