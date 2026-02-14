@@ -114,15 +114,7 @@ model_files = [
     "/mount/src/ml-experiments/01_ClassificationModels/xgboost_pipeline.pkl"
 ]
 
-models = {}
-for file in model_files:
-    if os.path.exists(file):
-        model_name = os.path.basename(file).replace("_pipeline.pkl", "").replace("kneighbors", "K-NearestNeighbor").capitalize()
-        models[model_name] = joblib.load(file)
-    else:
-        st.warning(f"Model file {file} not found!")
-
-        # Try loading
+# Try loading
 try:
  xgb_model = joblib.load('xgboost_pipeline.pkl')
  print("Model loaded successfully")
@@ -136,6 +128,14 @@ try:
   print(preds[:5], probs[:5])
 except Exception as e:
   print("Error predicting:", e)
+
+models = {}
+for file in model_files:
+    if os.path.exists(file):
+        model_name = os.path.basename(file).replace("_pipeline.pkl", "").replace("kneighbors", "K-NearestNeighbor").capitalize()
+        models[model_name] = joblib.load(file)
+    else:
+        st.warning(f"Model file {file} not found!")
 
 # --- Button to run predictions ---
 if st.button("Predict with all models"):
