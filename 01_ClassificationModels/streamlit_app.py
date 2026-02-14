@@ -14,6 +14,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.ensemble import RandomForestClassifier
 #import xgboost as xgb
 import os
+import numpy as np
 
 
 st.title("Heart Disease Detection")
@@ -39,6 +40,51 @@ patient_readable['thal'] = thal_map[patient['thal']]
 
 print(patient_readable)
 
+age = st.number_input("Age", min_value=1, max_value=120, value=50)
+
+# Sex
+sex_option = st.selectbox("Sex", ["Female", "Male"])
+sex = 0 if sex_option == "Female" else 1
+
+# Chest Pain Type
+cp_option = st.selectbox("Chest Pain Type",
+                         ["Typical Angina", "Atypical Angina", "Non-Anginal Pain", "Asymptomatic"])
+cp_map = {"Typical Angina": 0, "Atypical Angina": 1, "Non-Anginal Pain": 2, "Asymptomatic": 3}
+cp = cp_map[cp_option]
+
+trestbps = st.number_input("Resting Blood Pressure (mm Hg)", value=120)
+chol = st.number_input("Serum Cholesterol (mg/dl)", value=200)
+
+# Fasting Blood Sugar
+fbs_option = st.selectbox("Fasting Blood Sugar > 120 mg/dl", ["No", "Yes"])
+fbs = 0 if fbs_option == "No" else 1
+
+# Resting ECG
+restecg_option = st.selectbox("Resting ECG",
+                              ["Normal", "ST-T Wave Abnormality", "Left Ventricular Hypertrophy"])
+restecg_map = {"Normal": 0, "ST-T Wave Abnormality": 1, "Left Ventricular Hypertrophy": 2}
+restecg = restecg_map[restecg_option]
+
+thalach = st.number_input("Max Heart Rate Achieved", value=150)
+
+# Exercise Induced Angina
+exang_option = st.selectbox("Exercise Induced Angina", ["No", "Yes"])
+exang = 0 if exang_option == "No" else 1
+
+oldpeak = st.number_input("ST Depression", value=1.0, step=0.1)
+
+# Slope of ST segment
+slope_option = st.selectbox("Slope of ST Segment", ["Upsloping", "Flat", "Downsloping"])
+slope_map = {"Upsloping": 0, "Flat": 1, "Downsloping": 2}
+slope = slope_map[slope_option]
+
+# Number of major vessels
+ca = st.selectbox("Number of Major Vessels (0-3)", [0, 1, 2, 3])
+
+# Thalassemia
+thal_option = st.selectbox("Thalassemia", ["Normal", "Fixed Defect", "Reversible Defect"])
+thal_map = {"Normal": 1, "Fixed Defect": 2, "Reversible Defect": 3}
+thal = thal_map[thal_option]
 
 # Prepare input DataFrame
 input_data = pd.DataFrame({
