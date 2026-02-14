@@ -104,6 +104,8 @@ patient_readable['thal'] = patient_readable['thal'].map(thal_map)
 st.write("Summary of Patient Details : ")
 st.dataframe(patient_readable)
 
+models = {}  # initialize as an empty dictionary
+
 # --- Load all model PKLs dynamically ---
 model_files = [
     "/mount/src/ml-experiments/01_ClassificationModels/logisticregression_pipeline.pkl",
@@ -113,12 +115,9 @@ model_files = [
     "/mount/src/ml-experiments/01_ClassificationModels/randomforest_pipeline.pkl",
     "/mount/src/ml-experiments/01_ClassificationModels/xgboost_pipeline.pkl"
 ]
-
-models = {}  # initialize as an empty dictionary
-    
+ 
 # --- Button to run predictions ---
 if st.button("Predict with all models"):
-
     if not models:
         st.error("No models loaded. Check PKL files.")
     else:
