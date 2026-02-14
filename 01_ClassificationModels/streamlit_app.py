@@ -114,8 +114,8 @@ model_files = [
     "/mount/src/ml-experiments/01_ClassificationModels/xgboost_pipeline.pkl"
 ]
 
-      
-
+models = {}  # initialize as an empty dictionary
+    
 # --- Button to run predictions ---
 if st.button("Predict with all models"):
 
