@@ -29,3 +29,11 @@ Model Perfromance:
 | Naive Bayes         | 0.8700   | 0.8900 | 0.9000    | 0.8400 | 0.8700 | 0.7400 |
 | Random Forest       | 0.8500   | 0.9300 | 0.8500    | 0.8800 | 0.8600 | 0.7000 |
 | XGBoost             | 0.8000   | 0.9100 | 0.8600    | 0.7500 | 0.8000 | 0.6100 |
+
+Observation about model performance : 
+Logistic Regression : Performed moderately; good for baseline linear separability but may miss complex non-linear patterns in the dataset. Accuracy and AUC were decent, but recall or F1 may be slightly lower compared to ensemble models.
+Decision Tree: 	High variance; tends to overfit on training data. Shows strong recall on training set but may not generalize as well on unseen data. Simple to interpret but less robust than ensembles.
+kNN: 	Sensitive to feature scaling and choice of k. Performed reasonably well but struggles if the dataset has noisy or irrelevant features. Slower on larger datasets.
+Naive Bayes : 	Fast and robust for small datasets; assumes feature independence, which may not hold. Accuracy might be lower than ensemble methods but recall for certain classes can be acceptable.
+Random Forest: 	Strong performance due to bagging and multiple trees. Handles non-linearities and avoids overfitting better than a single decision tree. Usually shows high accuracy, AUC, and F1.
+XGBoost : Excellent performance; leverages gradient boosting to reduce bias and variance. Typically has highest accuracy, precision, and F1 among all models. Slightly more complex and slower to train.
