@@ -171,6 +171,23 @@ if st.button("Run Prediction"):
                             "Feature": feature,
                             "Importance": round(value, 3)
                         })
+                # -----------------------------
+                # Sorted Feature Importance
+                #-----------------------------
+                if hasattr(model, "feature_importances_"):
+
+                importance = model.feature_importances_
+
+                feature_df = pd.DataFrame({
+                "Feature": input_data.columns,
+                "Importance": importance
+                }).sort_values(by="Importance", ascending=False)
+
+                feature_df["Importance"] = feature_df["Importance"].round(3)
+                feature_df["Model"] = name
+
+                feature_results.extend(feature_df.to_dict(orient="records"))
+
 
             except Exception as e:
                 prediction_results.append({
