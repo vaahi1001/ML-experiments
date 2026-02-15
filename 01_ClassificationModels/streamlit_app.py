@@ -162,30 +162,18 @@ if st.button("Run Prediction"):
                     "Probability (%)": f"{prob_value*100:.2f}%" if prob_value is not None else "N/A"
                 })
 
-                # Feature importance (if available)
-                if hasattr(model, "feature_importances_"):
-                    importance = model.feature_importances_
-                    for feature, value in zip(input_data.columns, importance):
-                        feature_results.append({
-                            "Model": name,
-                            "Feature": feature,
-                            "Importance": round(value, 3)
-                        })
+           
                 # -----------------------------
                 # Sorted Feature Importance
                 #-----------------------------
                 if hasattr(model, "feature_importances_"):
-
                 importance = model.feature_importances_
-
                 feature_df = pd.DataFrame({
                 "Feature": input_data.columns,
                 "Importance": importance
                 }).sort_values(by="Importance", ascending=False)
-
                 feature_df["Importance"] = feature_df["Importance"].round(3)
                 feature_df["Model"] = name
-
                 feature_results.extend(feature_df.to_dict(orient="records"))
 
 
