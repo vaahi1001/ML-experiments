@@ -133,6 +133,8 @@ else:
         "Choose Models:",
         model_names
     )
+    #Remove duplicates just in case : Error in testing APP
+    selected_models = list(dict.fromkeys(selected_models))
 
 if st.button("Run Prediction"):
     if not selected_models:
@@ -144,6 +146,7 @@ if st.button("Run Prediction"):
 
         for name in selected_models:
             model = models[name]
+            prob_value = None  #resetatstart
 
             try:
                 pred = model.predict(input_data)[0]
@@ -169,13 +172,13 @@ if st.button("Run Prediction"):
                 if hasattr(model, "feature_importances_"):
                   importance = model.feature_importances_
               
-                feature_df = pd.DataFrame({
-                "Feature": input_data.columns,
-                "Importance": importance
-                }).sort_values(by="Importance", ascending=False)
-                feature_df["Importance"] = feature_df["Importance"].round(3)
-                feature_df["Model"] = name
-                feature_results.extend(feature_df.to_dict(orient="records"))
+                  feature_df = pd.DataFrame({
+                  "Feature": input_data.columns,
+                  "Importance": importance
+                  }).sort_values(by="Importance", ascending=False)
+                  feature_df["Importance"] = feature_df["Importance"].round(3)
+                  feature_df["Model"] = name
+                  feature_results.extend(feature_df.to_dict(orient="records"))
 
 
             except Exception as e:
